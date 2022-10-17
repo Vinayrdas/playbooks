@@ -1,0 +1,8 @@
+---
+- name: Creating a new user 2nd time
+  hosts: all
+  become: true
+  tasks:
+  - name: Creating user puja
+    user:
+      name: puja

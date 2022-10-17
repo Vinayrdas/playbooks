@@ -1,0 +1,9 @@
+---
+- name: Creating a file
+  hosts: all
+  become: true
+  tasks:
+  - name: Creating a new file
+    file:
+      path: /home/ansadmin/demoansiblefile
+      state: touch

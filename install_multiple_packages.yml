@@ -1,0 +1,9 @@
+---
+- name: Installing multiple packages
+  hosts: all
+  become: true
+  tasks:
+  - name: Installing few packages
+    yum:
+      name: ['git', 'wget', 'make', 'docker', 'gcc', 'mysql', 'tree']
+      state: installed

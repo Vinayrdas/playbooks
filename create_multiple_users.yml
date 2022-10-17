@@ -1,0 +1,15 @@
+---
+- name: Creating multiple users
+  hosts: all
+  become: true
+  tasks:
+  - name: Creating multiple users in all nodes
+    user:
+      name: "{{item}}"
+      state: present
+    with_items:
+      - user1
+      - user2
+      - user3
+      - user4
+      - user5

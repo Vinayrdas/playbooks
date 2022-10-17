@@ -1,0 +1,38 @@
+---
+- name: Installing tomcat
+  hosts: all
+  become: true
+  tasks:
+  - name: Step 1 - Installing Java in RedHat nodes
+    yum:
+      name: java
+      state: installed
+    when: ansible_os_family == "RedHat"
+
+  - name: Step 1 - Installing Java in Debian nodes
+    apt:
+      name: default-jdk
+      state: present
+    when: ansible_os_family == "Debian"
+
+  - name: Step 2 - Downloading tomcat in all nodes
+    get_url:
+      url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.67/bin/apache-tomcat-9.0.67.tar.gz
+      dest: /opt
+
+  - name: Step 3 - Extracting tomcat from zipped file
+    unarchive:
+      src: /opt/apache-tomcat-9.0.67.tar.gz
+      dest: /opt
+      remote_src: True
+
+  - name: Step 4 - Provide permission to start tomcat service
+    file:
+      path: /opt/apache-tomcat-9.0.67/bin/startup.sh
+      mode: 0777
+
+  - name: Step 5 - Start Tomcat service
+    shell: nohup ./startup.sh
+    args:
+      chdir: /opt/apache-tomcat-9.0.67/bin
+

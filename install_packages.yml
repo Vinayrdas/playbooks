@@ -1,0 +1,9 @@
+---
+- name: Installing pckages
+  hosts: all
+  become: true
+  tasks:
+  - name: Installing git package
+    yum:
+      name: git
+      state: installed

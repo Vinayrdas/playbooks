@@ -1,0 +1,7 @@
+---
+- name: Installing httpd in nodes
+  hosts: all
+  become: true
+
+  roles:
+  -  setup-apache-role
